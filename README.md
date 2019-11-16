@@ -16,8 +16,8 @@ Describes variables, data, and a summary of the transformations performed on the
 ### run_analysis.R
 Script to create tidy datasets starting from the described input material.
 
-### ActivityRecognition.csv
+### ActivityRecognition.txt
 A tidy dataset created by passing running the run_analysis.R script, the variables and data of which are described in CodeBook.md.
 
-### AverageActivityRecognition.csv
-A tidy dataset, similar to ActivityRecognition.csv, .but instead containing the average of each variable for each activity and each subject.
+### AverageActivityRecognition.txt
+A tidy dataset, similar to ActivityRecognition.txt, .but instead containing the average of each variable for each activity and each subject.
