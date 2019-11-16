@@ -5,15 +5,17 @@
 
 #This script is created for the Getting and Cleaning Data coursera course
 ################################################################################
-
-#download file if it does not exist
-if(!file.exists("./ActivitySamsung.zip")){
-    fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-    download.file(fileUrl, destfile = "./ActivitySamsung.zip", method = "curl")
-    }
-
-#extract downloaded zipfile
-unzip("./ActivitySamsung.zip")
+#Check if datafolder exists
+if(!dir.exists("./UCI HAR Dataset")){
+    #download file if it does not exist
+    if(!file.exists("./ActivitySamsung.zip")){
+        fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+        download.file(fileUrl, destfile = "./ActivitySamsung.zip", method = "curl")
+        }
+    
+    #extract downloaded zipfile
+    unzip("./ActivitySamsung.zip")
+}
 
 #1111111111111111111111111111111111111111111111111111111111111111111111111111111
 #zipfile contains folder named "UCI HAR Dataset", containing subfolders named
@@ -106,7 +108,7 @@ act$activity <- my_replace(act$activity, activity_label)
 #and write current table as-is
 #4444444444444444444444444444444444444444444444444444444444444444444444444444444
 #write one of the two output tables
-write_csv(act, path = "./ActivityRecognition.csv", col_names = T)
+write.table(act, file = "ActivityRecognition.txt", row.names = FALSE)
 
 #5555555555555555555555555555555555555555555555555555555555555555555555555555555
 #The second output table of the course assignment is a variation on the first,
@@ -115,9 +117,10 @@ write_csv(act, path = "./ActivityRecognition.csv", col_names = T)
 #5555555555555555555555555555555555555555555555555555555555555555555555555555555
 #For this, we use the dplyr function group_by(), followed by a call to 
 #summarise_all to get the average of each variable
+library(tidyverse)
 act_av <- act %>% as_tibble %>%
                 group_by(activity, subject) %>%
                     summarise_all(list('average' = mean))
 
 #write the second output table
-write_csv(act_av, path = "./AverageActivityRecognition.csv", col_names = T)
+write.table(act_av, file = "AverageActivityRecognition.txt", row.names = FALSE)
